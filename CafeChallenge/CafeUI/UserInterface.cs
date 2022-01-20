@@ -152,7 +152,7 @@ namespace CafeUI
             item.Description = Console.ReadLine();
 
             Console.WriteLine("Enter the item ingredients separated by commas: ");
-            item.Ingredients = Console.ReadLine().Split(',').ToList(); //Check to see this actually works
+            item.Ingredients = Console.ReadLine().Trim().Split(',').ToList(); //I think here Trim will only remove the whitespace before the first ingredient and after the last one- not any whitespace that might be in between. In that case, may have to look into other Trims at some point later on. 
 
             Console.WriteLine("Enter the item price: ");
             item.Price = double.Parse(Console.ReadLine());
@@ -185,7 +185,7 @@ namespace CafeUI
             newItem.Description = Console.ReadLine();
 
             Console.WriteLine("Enter the item ingredients separated by commas: ");
-            newItem.Ingredients = Console.ReadLine().Split(',').ToList(); //Trim method - will get rid of any whitespace user inputs-- research syntax and tack on hopefully
+            newItem.Ingredients = Console.ReadLine().Trim().Split(',').ToList(); //Trim method - will get rid of any whitespace user inputs-- research syntax and tack on hopefully
 
             Console.WriteLine("Enter the item price: ");
             newItem.Price = double.Parse(Console.ReadLine());
@@ -220,7 +220,7 @@ namespace CafeUI
 
             DisplayAllItems();
 
-            Console.WriteLine("Select the number of the item you want to remove:");
+            Console.WriteLine("\n Select the number of the item you want to remove:");
 
             int itemSelection = int.Parse(Console.ReadLine());
 
@@ -259,12 +259,13 @@ namespace CafeUI
             $"Ingredients:"
             );
             PrintIngredientsLists(item);
+            Console.WriteLine("\n\n");
         }
         private void PrintIngredientsLists(MenuItem item)
         {
             foreach (string ingredient in item.Ingredients)
             {
-                Console.Write(ingredient);
+                Console.Write($"{ingredient}, ");
             }
         }
 

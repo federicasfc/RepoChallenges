@@ -32,7 +32,7 @@ namespace CafeLibrary
         {
             foreach (MenuItem target in _repo)
             {
-                if (target.Name == name)
+                if (target.Name.ToLower() == name)
                 {
                     return target;
                 }

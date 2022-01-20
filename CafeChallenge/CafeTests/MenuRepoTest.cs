@@ -61,20 +61,34 @@ namespace CafeTests
 
         [TestMethod]
 
-        public void TestGetMenuItemByName_ShouldReturnCorrectContent()
+        public void TestGetMenuItemByName_ShouldReturnCorrectItem()
         {
             //Arrange- using test initialize and copy pasting itemTwo from above method because lazy
             MenuItem itemTwo = new MenuItem(5, "Ice Cream", "Two scoops of classic vanilla frozen treat", new List<string> { "sugar", "milk", "vanilla flavor", "ice" }, 2.00);
             _repo.AddItemToRepo(itemTwo);
 
             //Act
-            MenuItem result = _repo.GetMenuItemByName("Fries"); //case sensitive still- ToLowerCase needed--add later
+            MenuItem result = _repo.GetMenuItemByName("fries"); //not case sensitive anymore - added ToLower in MenuRepository GetMenuItemByName method
 
             //Assert
             Assert.AreEqual("Side of classic fries", result.Description);
         }
 
-        //Add one for GetMenuItemByNumber!!
+
+        [TestMethod]
+        public void TestGetMenuItemByNumber_ShouldReturnCorrectItem()
+        {
+            //Arrange- using test initialize and copy pasting itemTwo from above method because lazy
+            MenuItem itemTwo = new MenuItem(5, "Ice Cream", "Two scoops of classic vanilla frozen treat", new List<string> { "sugar", "milk", "vanilla flavor", "ice" }, 2.00);
+            _repo.AddItemToRepo(itemTwo);
+
+            //Act
+            MenuItem result = _repo.GetMenuItemByNumber(4);
+
+            //Assert
+            Assert.AreEqual("Fries", result.Name);
+
+        }
 
 
         [TestMethod]
