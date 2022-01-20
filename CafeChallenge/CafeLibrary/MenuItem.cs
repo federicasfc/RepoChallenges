@@ -9,7 +9,7 @@ namespace CafeLibrary
 
 
         //Constructor
-        public MenuItem() { }
+        public MenuItem() { } //For AddItem and UpdateItem UI methods
         public MenuItem(int itemNumber, string name, string description, List<string> ingredients, double price)
         {
             ItemNumber = itemNumber;

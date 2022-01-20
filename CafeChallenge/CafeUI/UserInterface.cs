@@ -143,19 +143,19 @@ namespace CafeUI
 
 
             Console.WriteLine("Enter the item number: ");
-            item.ItemNumber = int.Parse(Console.ReadLine());
+            item.ItemNumber = int.Parse(Console.ReadLine().Trim());
 
             Console.WriteLine("Enter the name: ");
-            item.Name = Console.ReadLine();
+            item.Name = Console.ReadLine().Trim();
 
             Console.WriteLine("Enter the item description: ");
-            item.Description = Console.ReadLine();
+            item.Description = Console.ReadLine().Trim();
 
             Console.WriteLine("Enter the item ingredients separated by commas: ");
             item.Ingredients = Console.ReadLine().Trim().Split(',').ToList(); //I think here Trim will only remove the whitespace before the first ingredient and after the last one- not any whitespace that might be in between. In that case, may have to look into other Trims at some point later on. 
 
             Console.WriteLine("Enter the item price: ");
-            item.Price = double.Parse(Console.ReadLine());
+            item.Price = double.Parse(Console.ReadLine().Trim());
 
             _repo.AddItemToRepo(item);
 
@@ -176,19 +176,19 @@ namespace CafeUI
             //Inputing new info
 
             Console.WriteLine("Enter the item number: ");
-            newItem.ItemNumber = int.Parse(Console.ReadLine());
+            newItem.ItemNumber = int.Parse(Console.ReadLine().Trim());
 
             Console.WriteLine("Enter the name: ");
-            newItem.Name = Console.ReadLine();
+            newItem.Name = Console.ReadLine().Trim();
 
             Console.WriteLine("Enter the item description: ");
-            newItem.Description = Console.ReadLine();
+            newItem.Description = Console.ReadLine().Trim();
 
             Console.WriteLine("Enter the item ingredients separated by commas: ");
             newItem.Ingredients = Console.ReadLine().Trim().Split(',').ToList(); //Trim method - will get rid of any whitespace user inputs-- research syntax and tack on hopefully
 
             Console.WriteLine("Enter the item price: ");
-            newItem.Price = double.Parse(Console.ReadLine());
+            newItem.Price = double.Parse(Console.ReadLine().Trim());
 
 
             //Running Repo Update Method
