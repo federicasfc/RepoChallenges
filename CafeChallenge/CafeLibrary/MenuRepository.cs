@@ -13,7 +13,7 @@ namespace CafeLibrary
         //Eventually here we need the methods "CRUD"
 
         //Create
-        public bool AddContentToRepo(MenuItem item)
+        public bool AddItemToRepo(MenuItem item)
         {
             int startingCount = _repo.Count;
             _repo.Add(item);
@@ -27,7 +27,7 @@ namespace CafeLibrary
             return _repo;
         }
 
-        //Maybe a Get by mealNumber or Name -- ignore for the time being
+        //Maybe a GetByName 
         public MenuItem GetMenuItemByName(string name)
         {
             foreach (MenuItem target in _repo)
@@ -39,6 +39,19 @@ namespace CafeLibrary
             }
             return null;
 
+        }
+
+        //GetByItemNumber
+        public MenuItem GetMenuItemByNumber(int itemNumber)
+        {
+            foreach (MenuItem target in _repo)
+            {
+                if (target.ItemNumber == itemNumber)
+                {
+                    return target;
+                }
+            }
+            return null;
         }
 
         //Update 
@@ -65,7 +78,7 @@ namespace CafeLibrary
 
         //Delete
 
-        public bool RemoveContentFromRepo(MenuItem existingItem)
+        public bool RemoveItemFromRepo(MenuItem existingItem)
         {
             return _repo.Remove(existingItem);
         }

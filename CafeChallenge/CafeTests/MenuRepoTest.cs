@@ -7,7 +7,9 @@ namespace CafeTests
     [TestClass]
     public class MenuRepoTest
     {
-        //Fields (declaring, not initializing- still not sure why they aren't just initialized here)
+        //Fields -- These fields have to be declared out here so that they can be accessed by all the methods (issue of scope)
+        //       -- However, they are initialized in the TestInitialize because that runs before all of the other tests and will ensure that all the tests begin with the same content. 
+
 
         private MenuItem _item;
 
@@ -17,13 +19,12 @@ namespace CafeTests
         public void Arrange()
         {
             //This is where to test the repo
-            //Here we will initialize the above fields with content, still unsure why
 
             _item = new MenuItem(4, "Fries", "Side of classic fries", new List<string> { "potatoes", "salt", "oil" }, 2.00);
 
             _repo = new MenuRepository();
 
-            _repo.AddContentToRepo(_item);
+            _repo.AddItemToRepo(_item);
 
 
         }
@@ -36,7 +37,7 @@ namespace CafeTests
             //Using Arrange Method from TestInitialize
 
             //Act
-            bool result = _repo.AddContentToRepo(_item);
+            bool result = _repo.AddItemToRepo(_item);
 
             //Assert
             Assert.IsTrue(result);
@@ -50,7 +51,7 @@ namespace CafeTests
             //Using TestInitialize, but also adding a few more MenuItems to _repo to make list
 
             MenuItem itemTwo = new MenuItem(5, "Ice Cream", "Two scoops of classic vanilla frozen treat", new List<string> { "sugar", "milk", "vanilla flavor", "ice" }, 2.00);
-            _repo.AddContentToRepo(itemTwo);
+            _repo.AddItemToRepo(itemTwo);
 
             //Act
             List<MenuItem> result = _repo.GetAllMenuItems();
@@ -64,7 +65,7 @@ namespace CafeTests
         {
             //Arrange- using test initialize and copy pasting itemTwo from above method because lazy
             MenuItem itemTwo = new MenuItem(5, "Ice Cream", "Two scoops of classic vanilla frozen treat", new List<string> { "sugar", "milk", "vanilla flavor", "ice" }, 2.00);
-            _repo.AddContentToRepo(itemTwo);
+            _repo.AddItemToRepo(itemTwo);
 
             //Act
             MenuItem result = _repo.GetMenuItemByName("Fries"); //case sensitive still- ToLowerCase needed--add later
@@ -73,7 +74,9 @@ namespace CafeTests
             Assert.AreEqual("Side of classic fries", result.Description);
         }
 
-        //Maybe Add one for Update method at some point
+        //Add one for GetMenuItemByNumber!!
+
+
         [TestMethod]
 
         public void TestUpdateExistingItem_ShouldReturnUpdatedItem()
@@ -88,6 +91,7 @@ namespace CafeTests
 
             //Assert
             Assert.IsTrue(result); //Seems like there should be a better way to test this
+            Assert.AreEqual("fried potatoes", oldItem.Description);
         }
 
         [TestMethod]
@@ -96,7 +100,7 @@ namespace CafeTests
         {
             //Arrange-Test Initialize
             //Act
-            bool result = _repo.RemoveContentFromRepo(_item);
+            bool result = _repo.RemoveItemFromRepo(_item);
 
             //Assert
             Assert.IsTrue(result);
