@@ -6,7 +6,8 @@ namespace ClaimsUI
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            UserInterface testUi = new UserInterface();
+            testUi.Run();
         }
     }
 }

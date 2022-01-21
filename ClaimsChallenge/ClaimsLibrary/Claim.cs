@@ -9,6 +9,9 @@ namespace ClaimsLibrary
         private static int TotalClaims = 0;
 
         //Constructor
+
+        public Claim() { ClaimId = ++TotalClaims; } //For AddNewClaim method in UI //method signature: name of method + parameter; constructors work as methods. With methods, as long as the method signature is different(either name is different or parameters are different), any amount of methods of the same name will be able to run simultaneously. 
+                                                    //For this reason, I can set ClaimID= ++TotalClaims in both of these constructors. 
         public Claim(ClaimType claimType, string description, double claimAmount, DateTime dateOfIncident, DateTime dateOfClaim)
         {
             ClaimId = ++TotalClaims; //++ has to be before because it will increment before taking action, will set to 1 first and then assign, instead of the other way around

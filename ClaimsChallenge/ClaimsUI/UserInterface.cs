@@ -2,30 +2,189 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ClaimsLibrary;
 
 namespace ClaimsUI
 {
     public class UserInterface
     {
+        //Field
+        private readonly ClaimRepository _repo = new ClaimRepository();
+
+
         //Run Method- will include SeedContent and RunMenu (in that order lol)
+        public void Run()
+        {
+            SeedContent();
+            RunMenu();
+        }
 
         //RunMenu method
+        private void RunMenu()
+        {
+            bool isRunning = true;
+            while (isRunning)
+            {
+                Console.Clear();
+                Console.WriteLine
+                (
+                    "Enter the number of your selection:\n" +
+                    "1. See all claims\n" +
+                    "2. Handle next claim\n" +
+                    "3. Enter a new claim\n" +
+                    "4. Exit"
+                );
+
+                string userSelection = Console.ReadLine();
+
+                switch (userSelection)
+                {
+                    case "1":
+                        DisplayAllClaims();
+                        break;
+                    case "2":
+                        HandleClaims();
+                        break;
+                    case "3":
+                        AddNewClaim();
+                        break;
+                    case "4":
+                        Console.WriteLine("Goodbye");
+                        isRunning = false;
+                        break;
+                    default:
+                        Console.WriteLine("Invalid Input");
+                        break;
+                }
+            }
+        }
 
         //DisplayAllClaims
+
+        private void DisplayAllClaims()
+        {
+            Console.Clear();
+            Queue<Claim> queueOfClaims = _repo.GetAllClaims();
+
+            foreach (Claim claim in queueOfClaims)
+            {
+                PrintContent(claim);
+            }
+            Console.WriteLine("\nPress any key to continue...");
+            Console.ReadKey();
+        }
 
         //HandleClaims
         //  - Somwhere in here there will probably be a loop (or maybe no loop, just call GetNextClaim) with an if/else nested inside
         //  - Within the if(user presses y), Dequeue method will likely be necessary -call RemoveClaimFromRepo method
         //  - or else if(user presses n) that will go back to main menu, leaving else for invalid input)
-        //  - Not sure yet what parts of this method will be here/what will be in the UI- revisit later.
+
+        private void HandleClaims()
+        {
+            Console.Clear();
+
+            Claim nextClaim = _repo.GetNextClaim();
+            PrintContent(nextClaim);
+
+            Console.WriteLine("\nPress any key to continue...");
+            Console.ReadKey();
+
+        }
+
+
 
         //AddNewClaim
+
+        private void AddNewClaim()
+        {
+            Console.Clear();
+
+            Claim claim = new Claim();
+
+            //ClaimId handled automatically
+
+            //ClaimType
+
+            Console.WriteLine(
+                "Select the claim type:\n" +
+                "1: Car\n" +
+                "2: Home\n" +
+                "3: Theft\n"
+                );
+
+            string claimTypeSelection = Console.ReadLine();
+
+            switch (claimTypeSelection)
+            {
+                case "1":
+                    claim.ClaimType = ClaimType.Car;
+                    break;
+                case "2":
+                    claim.ClaimType = ClaimType.Home;
+                    break;
+                case "3":
+                    claim.ClaimType = ClaimType.Theft;
+                    break;
+                default:
+                    Console.WriteLine("Invalid input");
+                    break;
+
+            }
+
+            //ClaimDescription
+            Console.Write("Enter the claim description: ");
+            claim.Description = Console.ReadLine().Trim();
+
+            //ClaimAmount
+            Console.Write("Enter the claim amount: ");
+            claim.ClaimAmount = double.Parse(Console.ReadLine().Trim());
+
+            //DateOfIncident
+
+            Console.Write("Enter the date of the incident as mm/dd/yyyy: ");
+            claim.DateOfIncident = DateTime.Parse(Console.ReadLine().Trim());
+
+            //DateOfClaim
+
+            Console.Write("Enter the date of the claim as mm/dd/yyyy: ");
+            claim.DateOfClaim = DateTime.Parse(Console.ReadLine().Trim());
+
+            //IsValid handled automatically
+            Console.Write($"Claim is valid: {claim.IsValid}");
+
+            _repo.AddClaimToRepo(claim);
+
+        }
 
         //Helper Methods:
 
         //PrintContent 
         // - will probably want to use Console.Write based on the formatting in the prompt
+        private void PrintContent(Claim claim)
+        {
+            // string[] claimProperties = { "Claim Id:", "Claim Type:", "Claim Description:", "Claim Amount:", "Date of Incident:", "Date of Claim:", "IsValid:" };
+            //  string[] claimsArray = { $"{claim.ClaimId}", $"{ claim.ClaimType }", $"{ claim.Description }", $"{ claim.ClaimAmount }", $"{ claim.DateOfIncident }", $"{ claim.DateOfClaim }", $"{ claim.IsValid }" };
+
+            // for (int ctr = 0; ctr < claimProperties.Length; ctr++)
+            //   Console.WriteLine("{0, -20} {0, -10}", claimProperties, claimsArray);
+            Console.WriteLine("Claim Id:   Claim Type:   Claim Description:   Claim Amount:   Date of Incident:   Date of Claim:   IsValid:");
+            Console.WriteLine($"{claim.ClaimId}           {claim.ClaimType}      {claim.Description}   {claim.ClaimAmount}   {claim.DateOfIncident}   {claim.DateOfClaim}   {claim.IsValid}\n\n");
+
+        }
 
         //SeedContent
+        private void SeedContent()
+        {
+            Claim claimOne = new Claim(ClaimType.Home, "Tree fell on roof", 5000.00, new DateTime(2022, 01, 15), new DateTime(2022, 01, 20));
+            Claim claimTwo = new Claim(ClaimType.Car, "Accident damaged bumper", 3000.00, new DateTime(2021, 11, 12), new DateTime(2021, 11, 23));
+            Claim claimThree = new Claim(ClaimType.Theft, "Tv stolen", 500.00, new DateTime(2021, 12, 25), new DateTime(2022, 01, 06));
+            Claim invalidClaim = new Claim(ClaimType.Home, "Heating system needs replaced", 7000.00, new DateTime(2021, 10, 30), new DateTime(2021, 12, 05));
+
+            _repo.AddClaimToRepo(claimOne);
+            _repo.AddClaimToRepo(claimTwo);
+            _repo.AddClaimToRepo(claimThree);
+            _repo.AddClaimToRepo(invalidClaim);
+
+        }
     }
 }
