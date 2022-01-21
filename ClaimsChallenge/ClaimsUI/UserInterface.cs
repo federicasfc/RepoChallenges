@@ -81,13 +81,43 @@ namespace ClaimsUI
 
         private void HandleClaims()
         {
-            Console.Clear();
+            bool isRunning = true;
+            while (isRunning)
+            {
 
-            Claim nextClaim = _repo.GetNextClaim();
-            PrintContent(nextClaim);
+                Console.Clear();
 
-            Console.WriteLine("\nPress any key to continue...");
-            Console.ReadKey();
+                Claim nextClaim = _repo.GetNextClaim();
+                PrintContent(nextClaim);
+
+                Console.WriteLine("Do you want to handle this claim now(y/n)?");
+
+                string userResponse = Console.ReadLine();
+                if (userResponse == "y")
+                {
+                    Console.Clear();
+                    _repo.RemoveClaimFromRepo();
+                    Console.WriteLine("Claim removed from queue");
+                    Console.WriteLine("\nPress any key to continue...");
+                    Console.ReadKey();
+                }
+                else if (userResponse == "n")
+                {
+                    Console.Clear();
+                    Console.WriteLine("Claim is still active");
+                    Console.WriteLine("\nPress any key to continue...");
+                    Console.ReadKey();
+                    isRunning = false;
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("Invalid input");
+                    Console.WriteLine("\nPress any key to continue...");
+                    Console.ReadKey();
+
+                }
+            }
 
         }
 
@@ -159,16 +189,21 @@ namespace ClaimsUI
         //Helper Methods:
 
         //PrintContent 
-        // - will probably want to use Console.Write based on the formatting in the prompt
         private void PrintContent(Claim claim)
         {
-            // string[] claimProperties = { "Claim Id:", "Claim Type:", "Claim Description:", "Claim Amount:", "Date of Incident:", "Date of Claim:", "IsValid:" };
-            //  string[] claimsArray = { $"{claim.ClaimId}", $"{ claim.ClaimType }", $"{ claim.Description }", $"{ claim.ClaimAmount }", $"{ claim.DateOfIncident }", $"{ claim.DateOfClaim }", $"{ claim.IsValid }" };
+            string[] claimPropertyLabels = { "Claim Id:", "Claim Type:", "Claim Description:", "Claim Amount:", "Date of Incident:", "Date of Claim:", "IsValid:" };
+            string[] claimProperties = { $"{claim.ClaimId}", $"{ claim.ClaimType }", $"{ claim.Description }", $"{ claim.ClaimAmount }", $"{ claim.DateOfIncident }", $"{ claim.DateOfClaim }", $"{ claim.IsValid }" };
 
-            // for (int ctr = 0; ctr < claimProperties.Length; ctr++)
-            //   Console.WriteLine("{0, -20} {0, -10}", claimProperties, claimsArray);
-            Console.WriteLine("Claim Id:   Claim Type:   Claim Description:   Claim Amount:   Date of Incident:   Date of Claim:   IsValid:");
-            Console.WriteLine($"{claim.ClaimId}           {claim.ClaimType}      {claim.Description}   {claim.ClaimAmount}   {claim.DateOfIncident}   {claim.DateOfClaim}   {claim.IsValid}\n\n");
+
+            //Fix later- very confusing
+            string FormatCPLArray = String.Format("{0, -5} {1, -7} {2, -9} {3, -5} {4, -4} {5, -3} {6, -2}", claimPropertyLabels);
+            string FormatCArray = String.Format("{0, -5} {1, -7} {2, -9} {3, -5} {4, -4} {5, -3} {6, -2}", claimProperties);
+
+            Console.WriteLine(FormatCPLArray);
+            Console.WriteLine(FormatCArray);
+
+            //Console.WriteLine("Claim Id:   Claim Type:   Claim Description:   Claim Amount:   Date of Incident:   Date of Claim:   IsValid:");
+            //Console.WriteLine($"{claim.ClaimId}           {claim.ClaimType}      {claim.Description}   {claim.ClaimAmount}   {claim.DateOfIncident}   {claim.DateOfClaim}   {claim.IsValid}\n\n");
 
         }
 
