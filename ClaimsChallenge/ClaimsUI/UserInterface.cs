@@ -196,7 +196,7 @@ namespace ClaimsUI
 
 
             string FormatCPLArray = String.Format("{0, -9} {1, -9} {2, -24} {3, -13} {4, -20} {5, -20} {6, -13}", claimPropertyLabels);
-            string FormatCArray = String.Format("{0, -9} {1, -11} {2, -24} {3, -13} {4, -20} {5, -20} {6, -10}", claimProperties);
+            string FormatCArray = String.Format("{0, -9} {1, -11} {2, -24} {3, -13} {4, -20} {5, -20} {6, -10}", claimProperties); //In event I forget, first number in brackets is the index of the string (if I hadn't done an array, and just did them as individual variable, it would always be 0...I think), and second number is the amount of characters that it takes up in Console (think pixels). The negative means that it's left-aligned, positive is right-aligned.
 
             Console.WriteLine(FormatCPLArray);
             //Console.WriteLine("\n");
