@@ -195,15 +195,27 @@ namespace ClaimsUI
             string[] claimProperties = { $"{claim.ClaimId}", $"{ claim.ClaimType }", $"{ claim.Description }", $"{ claim.ClaimAmount }", $"{ claim.DateOfIncident }", $"{ claim.DateOfClaim }", $"{ claim.IsValid }" };
 
 
-            //Fix later- very confusing
-            string FormatCPLArray = String.Format("{0, -5} {1, -7} {2, -9} {3, -5} {4, -4} {5, -3} {6, -2}", claimPropertyLabels);
-            string FormatCArray = String.Format("{0, -5} {1, -7} {2, -9} {3, -5} {4, -4} {5, -3} {6, -2}", claimProperties);
+            string FormatCPLArray = String.Format("{0, -9} {1, -9} {2, -24} {3, -13} {4, -20} {5, -20} {6, -13}", claimPropertyLabels);
+            string FormatCArray = String.Format("{0, -9} {1, -11} {2, -24} {3, -13} {4, -20} {5, -20} {6, -10}", claimProperties);
 
             Console.WriteLine(FormatCPLArray);
+            //Console.WriteLine("\n");
             Console.WriteLine(FormatCArray);
+            Console.WriteLine("\n");
 
-            //Console.WriteLine("Claim Id:   Claim Type:   Claim Description:   Claim Amount:   Date of Incident:   Date of Claim:   IsValid:");
-            //Console.WriteLine($"{claim.ClaimId}           {claim.ClaimType}      {claim.Description}   {claim.ClaimAmount}   {claim.DateOfIncident}   {claim.DateOfClaim}   {claim.IsValid}\n\n");
+
+            //Drawbacks to the way this is formatted: 
+            //  - longer descriptions will inevitably throw everything out of order
+            //  - I think that unless I separate each property into its own variable and String.Format each individually, I cannot change how an individual one is formatted. In this case, it means that I can't stop the time printing along with the date...
+            //  - Because of the way I loop through PrintContent in the display method, this will print out the ClaimPropertyLabels each time it prints out a claim. I don't hate this, but it's potentially less readable and doesn't match the prompt.
+
+            //Possible fixes (May come back to in time):
+            //  - not sure on how to account for long descriptions as Console width is set. If I could change Console width, everything could appear on the same line 
+            //  - Could refactor all of this and create individual variables for each property and each propertyLabel and String.Format them individually instead of String.Formatting the array (more lines of code, but easier to adjust formatting if needed)
+            //  - Could separate out PrintContent into PrintPropertyLabels and PrintClaimInfo, call both in DisplayAllClaims, and only loop through PrintClaimInfo- this way the PropertyLabels would match the prompt and only print once.
+
+            //OR!!! could potentially create separate variables for each of the DateTime properties, and then just interpolate the new formatted variables into the array!!! Could work...
+            //Not sure if it will let me String.Format the same thing twice...unless it would count the first one as DateTime.Format(or something) and not incorporate String.Format at all yet. Need to explore further.
 
         }
 
@@ -213,7 +225,7 @@ namespace ClaimsUI
             Claim claimOne = new Claim(ClaimType.Home, "Tree fell on roof", 5000.00, new DateTime(2022, 01, 15), new DateTime(2022, 01, 20));
             Claim claimTwo = new Claim(ClaimType.Car, "Accident damaged bumper", 3000.00, new DateTime(2021, 11, 12), new DateTime(2021, 11, 23));
             Claim claimThree = new Claim(ClaimType.Theft, "Tv stolen", 500.00, new DateTime(2021, 12, 25), new DateTime(2022, 01, 06));
-            Claim invalidClaim = new Claim(ClaimType.Home, "Heating system needs replaced", 7000.00, new DateTime(2021, 10, 30), new DateTime(2021, 12, 05));
+            Claim invalidClaim = new Claim(ClaimType.Home, "Heating system broke", 7000.00, new DateTime(2021, 10, 30), new DateTime(2021, 12, 05));
 
             _repo.AddClaimToRepo(claimOne);
             _repo.AddClaimToRepo(claimTwo);
