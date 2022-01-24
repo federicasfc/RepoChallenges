@@ -9,7 +9,7 @@ namespace BadgeLibrary
         //Constructor
         public Badge(List<string> doorNames, string badgeName)
         {
-            BadgeId = ++TotalBadges;
+            BadgeId = ++TotalBadges; //Not my original idea; Copied from Josh's fullstack app code along from the end of CodingFoundations
             DoorNames = doorNames;
             BadgeName = badgeName;
         }
