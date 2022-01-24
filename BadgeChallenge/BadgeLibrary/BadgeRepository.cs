@@ -61,15 +61,47 @@ namespace BadgeLibrary
         //Update UpdateBadgeAccess
         // - will probably use the GetBadgeByIdNumber -- or not since it probably doesn't work the way I want it to; maybe use GetAllBadges instead 
 
-        public void UpdateBadge()
+        public bool UpdateExistingBadge(int badgeId, Badge newBadge)
         {
+
+            Badge oldBadge = GetBadgeByIdNumber(badgeId);
+
+            if (oldBadge != null)
+            {
+                oldBadge.BadgeId = newBadge.BadgeId;
+                oldBadge.DoorNames = newBadge.DoorNames;
+                oldBadge.BadgeName = newBadge.BadgeName;
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        //Realized this update method is probably useless. Update/EditBadge method in UI will probably just involve calling the addmethod(int badgeId, badge.DoorNames)?
+
+        //AddDoorToBadge Attempt -- doesn't work, can't figure it out
+        /* public void AddDoorToBadge(int badgeId, string newDoor)
+        {
+            Badge badge = GetBadgeByIdNumber(badgeId);
+
+            badge = badge.DoorNames.Add(newDoor);
 
         }
 
 
-        //Delete / DeleteAllDoorsFromBadge
+
+        
+        //Delete / DeleteAllDoorsFromBadge --also doesn't work, also can't figure out why
         // - prompt does not specify that it wants to delete badges, just that it wants to delete all doors from a badge
         // - will probably use either the GetAllBadges or the GetBadgeByIdNumber
+
+        public bool RemoveDoorsFromBadge(Badge badge)
+        {
+            _repo.Remove(badge.BadgeId, out badge.DoorNames);
+
+        } */
 
     }
 }

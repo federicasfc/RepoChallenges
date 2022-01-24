@@ -81,5 +81,21 @@ namespace BadgeTests
 
 
         }
+        [TestMethod]
+
+        public void TestUpdateExistingBadge_ShouldReturnUpdatedBadge()
+        {
+            //Arrange - using TI
+            Badge oldBadge = _repo.GetBadgeByIdNumber(2);
+            Badge updatedBadge = new Badge(new List<string> { "D1", "D2", "D3", "D4" }, "NewName");
+            //Act
+            bool result = _repo.UpdateExistingBadge(2, updatedBadge);
+            //Assert
+            Assert.IsTrue(result); //works
+            Assert.AreEqual("NewName", oldBadge.BadgeName); //Works, but have to comment out bool result variable and just call _repo.UpdateExistingBadge()
+
+
+
+        }
     }
 }
