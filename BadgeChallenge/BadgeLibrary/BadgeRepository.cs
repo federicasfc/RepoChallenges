@@ -76,28 +76,44 @@ namespace BadgeLibrary
         //Realized this update method is probably useless. Update/EditBadge method in UI will probably just involve calling the addmethod(int badgeId, badge.DoorNames)?
 
         //AddDoorToBadge Attempt -- doesn't work, can't figure it out
-        /*
+
         public void AddDoorToBadge(int badgeId, string newDoor)
         {
             Badge badge = GetBadgeByIdNumber(badgeId);
 
-            badge = badge.DoorNames.Add(newDoor);
+            badge.DoorNames.Add(newDoor);
 
         }
-        
 
-
-
-        
         //Delete / DeleteAllDoorsFromBadge --also doesn't work, also can't figure out why
+
         // - prompt does not specify that it wants to delete badges, just that it wants to delete all doors from a badge
-        // - will probably use either the GetAllBadges or the GetBadgeByIdNumber
 
-        public bool RemoveDoorsFromBadge(Badge badge)
+        public bool RemoveDoorFromBadge(int badgeId, string doorName)
         {
-            _repo.Remove(badge.BadgeId, out badge.DoorNames);
+            Badge badge = GetBadgeByIdNumber(badgeId);
+            // _repo.Remove(badge.BadgeId,);
+            return badge.DoorNames.Remove(doorName);
 
-        } */
+        }
+
+        //For RemoveAllDoors 
+        // badge.DoorNames = new List<string>(); //Overwrites List with new empty list
+
+        public bool RemoveAllDoorsFromBadge(int badgeId)
+        {
+
+            Badge badge = GetBadgeByIdNumber(badgeId);
+
+            int listCount = badge.DoorNames.Count();
+
+            badge.DoorNames = new List<string>(); //Overwrites List with new empty list (thank you Adam!!)
+
+
+            return listCount < badge.DoorNames.Count(); //Doesn't prove that listCount is 0, but close enough for right now
+
+        }
+
 
     }
 }
