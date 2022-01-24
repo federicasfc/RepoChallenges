@@ -127,6 +127,7 @@ namespace BadgeUI
 
             foreach (KeyValuePair<int, Badge> badge in dictOfBadges)
             {
+                //foreach for DoorNames or foreach through badge.Value depending on what I want printed out, which still needs to be figured out
                 Console.WriteLine("key = {0}, Value = {1}", badge.Key, badge.Value);
                 //Not using print content, but should at least do something. Need to edit PrintContent at some point.
                 //Also will print all of badge, not just doornames
