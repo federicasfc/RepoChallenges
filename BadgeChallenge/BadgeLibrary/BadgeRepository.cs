@@ -33,12 +33,6 @@ namespace BadgeLibrary
 
         //Read/ GetBadgeByIdNumber
 
-        /*
-        public bool GetBadgeByIdNumber(Badge badge)
-        {
-            return _repo.TryGetValue(badge.BadgeId, out badge); //Theoretically, I want this to return to me the value of badge located at the BadgeId. But, I would it would be nice to be able to have my parameter be the badgeId(not allowed). Because right now, I don't have a way of specifying which badge I want returned...I think.
-        } //Don't think I'm doing this right. Completely misunderstood function of TryGetValue - I think all it actually does is confirm or deny whether a certain key within the dictionary exists- won't actually return value- unless that's what the "out" does */
-
         public Badge GetBadgeByIdNumber(int badgeId)
         {
             Badge badgeRequested = _repo[badgeId];
@@ -82,13 +76,15 @@ namespace BadgeLibrary
         //Realized this update method is probably useless. Update/EditBadge method in UI will probably just involve calling the addmethod(int badgeId, badge.DoorNames)?
 
         //AddDoorToBadge Attempt -- doesn't work, can't figure it out
-        /* public void AddDoorToBadge(int badgeId, string newDoor)
+        /*
+        public void AddDoorToBadge(int badgeId, string newDoor)
         {
             Badge badge = GetBadgeByIdNumber(badgeId);
 
             badge = badge.DoorNames.Add(newDoor);
 
         }
+        
 
 
 
