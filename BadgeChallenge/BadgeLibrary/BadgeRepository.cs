@@ -77,11 +77,15 @@ namespace BadgeLibrary
 
         //AddDoorToBadge Attempt -- doesn't work, can't figure it out
 
-        public void AddDoorToBadge(int badgeId, string newDoor)
+        public bool AddDoorToBadge(int badgeId, string newDoor)
         {
             Badge badge = GetBadgeByIdNumber(badgeId);
 
+            int startingListCount = badge.DoorNames.Count();
+
             badge.DoorNames.Add(newDoor);
+
+            return startingListCount < badge.DoorNames.Count();
 
         }
 

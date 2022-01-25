@@ -97,5 +97,43 @@ namespace BadgeTests
 
 
         }
+        [TestMethod]
+
+        public void TestAddDoorToBadge_ShouldGetTrue()
+        {
+            //Arrange - using TI
+            //Act
+            //bool result = _repo.AddDoorToBadge(2, "T4");
+            _repo.AddDoorToBadge(2, "T4");
+            //Assert
+            Assert.AreEqual("T4", _badgeTwo.DoorNames[4]);
+            //Assert.IsTrue(result); 
+        }
+
+        [TestMethod]
+
+        public void TestRemoveDoorFromBadge_ShouldGetTrue()
+        {
+            //Arrange- TI
+            //Act
+            //bool result = _repo.RemoveDoorFromBadge(3, "C4");
+            _repo.RemoveDoorFromBadge(3, "C4");
+            //Assert
+            //Assert.IsTrue(result);
+            Assert.AreEqual(3, _badgeThree.DoorNames.Count);
+        }
+
+        [TestMethod]
+
+        public void TestRemoveAllDoorsFromBadge_ShouldGetTrue()
+        {
+            //Arrange -TI
+            //Act
+            _repo.RemoveAllDoorsFromBadge(1);
+            //Assert
+            //Assert.IsTrue(result);
+            Assert.AreEqual(0, _badgeOne.DoorNames.Count);
+
+        }
     }
 }
