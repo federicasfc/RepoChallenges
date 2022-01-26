@@ -94,7 +94,8 @@ namespace BadgeUI
             Console.WriteLine("What would you like to do?\n" +
 
             "1.Remove a door\n" +
-            "2.Add a door\n"
+            "2.Remove all doors\n" +
+            "3.Add a door"
             );
 
             string userSelection = Console.ReadLine();
@@ -102,17 +103,80 @@ namespace BadgeUI
             switch (userSelection)
             {
                 case "1":
-                    //Call hypothetical method that removes door
+
+                    Console.WriteLine("Enter the door you would like removed from badge: ");
+                    string doorToBeRemoved = Console.ReadLine().Trim().ToUpper();
+
+                    if (badge.DoorNames.Contains(doorToBeRemoved))
+                    {
+                        if (_repo.RemoveDoorFromBadge(enteredNumber, doorToBeRemoved))
+                        {
+
+                            Console.WriteLine($"{doorToBeRemoved} successfully removed");
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("Something went wrong");
+                        }
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input");
+                    }
+
                     break;
                 case "2":
-                    //Call hypothetical method that adds doors
+
+                    Console.WriteLine($"Are you sure you want to remove all doors from {badge.BadgeId}?\n Enter y/n");
+                    string userConfirmation = Console.ReadLine().Trim();
+
+                    if (userConfirmation.ToLower() == "y")
+                    {
+                        if (_repo.RemoveAllDoorsFromBadge(enteredNumber))
+                        {
+                            Console.WriteLine($"All doors removed from badge {badge.BadgeId}");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Something went wrong");
+                        }
+                    }
+                    else if (userConfirmation.ToLower() == "n")
+                    {
+                        Console.WriteLine($"No doors removed from badge {badge.BadgeId}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input");
+
+                    }
+
+                    break;
+                case "3":
+
+                    Console.WriteLine("Enter the door you would like to add: ");
+                    string doorToBeAdded = Console.ReadLine().Trim().ToUpper();
+
+                    if (_repo.AddDoorToBadge(enteredNumber, doorToBeAdded))
+                    {
+                        Console.WriteLine($"Door successfully added to {badge.BadgeId}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Something went wrong");
+                    }
+
                     break;
                 default:
                     Console.WriteLine("Invalid input");
                     break;
+
             }
 
-
+            Console.WriteLine($"Badge {badge.BadgeId} has access to: ");
+            PrintDoorsList(badge);
 
         }
 
