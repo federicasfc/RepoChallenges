@@ -45,7 +45,7 @@ namespace BadgeUI
                         AddNewBadge();
                         break;
                     case "2":
-                        //EditBadge
+                        EditBadgeDoors();
                         break;
                     case "3":
                         DisplayAllBadges();
@@ -75,7 +75,18 @@ namespace BadgeUI
             Console.WriteLine("Enter the badge name:");
             badge.BadgeName = Console.ReadLine().Trim();
 
-            _repo.AddNewBadgeToRepo(badge);
+            if (_repo.AddNewBadgeToRepo(badge))
+            {
+                Console.WriteLine($"Badge {badge.BadgeId} successfully added.");
+                Console.WriteLine("Press any key to continue");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine("Something went wrong");
+                Console.WriteLine("Press any key to continue");
+                Console.ReadKey();
+            }
         }
 
         //EditBadge
@@ -113,17 +124,23 @@ namespace BadgeUI
                         {
 
                             Console.WriteLine($"{doorToBeRemoved} successfully removed");
+                            Console.WriteLine("Press any key to continue");
+                            Console.ReadKey();
 
                         }
                         else
                         {
                             Console.WriteLine("Something went wrong");
+                            Console.WriteLine("Press any key to continue");
+                            Console.ReadKey();
                         }
 
                     }
                     else
                     {
                         Console.WriteLine("Invalid input");
+                        Console.WriteLine("Press any key to continue");
+                        Console.ReadKey();
                     }
 
                     break;
@@ -137,19 +154,27 @@ namespace BadgeUI
                         if (_repo.RemoveAllDoorsFromBadge(enteredNumber))
                         {
                             Console.WriteLine($"All doors removed from badge {badge.BadgeId}");
+                            Console.WriteLine("Press any key to continue");
+                            Console.ReadKey(); //For some reason, these console lines aren't printing and the ones in the else are, but the method is being called successfully.
                         }
                         else
                         {
                             Console.WriteLine("Something went wrong");
+                            Console.WriteLine("Press any key to continue");
+                            Console.ReadKey();
                         }
                     }
                     else if (userConfirmation.ToLower() == "n")
                     {
                         Console.WriteLine($"No doors removed from badge {badge.BadgeId}");
+                        Console.WriteLine("Press any key to continue");
+                        Console.ReadKey();
                     }
                     else
                     {
                         Console.WriteLine("Invalid input");
+                        Console.WriteLine("Press any key to continue");
+                        Console.ReadKey();
 
                     }
 
@@ -162,21 +187,29 @@ namespace BadgeUI
                     if (_repo.AddDoorToBadge(enteredNumber, doorToBeAdded))
                     {
                         Console.WriteLine($"Door successfully added to {badge.BadgeId}");
+                        Console.WriteLine("Press any key to continue");
+                        Console.ReadKey();
                     }
                     else
                     {
                         Console.WriteLine("Something went wrong");
+                        Console.WriteLine("Press any key to continue");
+                        Console.ReadKey();
                     }
 
                     break;
                 default:
                     Console.WriteLine("Invalid input");
+                    Console.WriteLine("Press any key to continue");
+                    Console.ReadKey();
                     break;
 
             }
 
             Console.WriteLine($"Badge {badge.BadgeId} has access to: ");
             PrintDoorsList(badge);
+            Console.WriteLine("\nPress any key to continue");
+            Console.ReadKey();
 
         }
 
@@ -191,9 +224,17 @@ namespace BadgeUI
 
             foreach (KeyValuePair<int, Badge> badge in dictOfBadges)
             {
+                Console.WriteLine($" Badge #: {badge.Key}, Door Access:");
+
+                foreach (string door in badge.Value.DoorNames)
+                {
+                    Console.WriteLine($"{door}");
+                }
 
 
             }
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
         }
         //foreach for DoorNames or foreach through badge.Value depending on what I want printed out, which still needs to be figured out
         // Console.WriteLine("key = {0},  Value = {1}", badge.Key, badge.Value);
