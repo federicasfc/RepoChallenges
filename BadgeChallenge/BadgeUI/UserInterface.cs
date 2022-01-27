@@ -70,7 +70,7 @@ namespace BadgeUI
             Badge badge = new Badge();
 
             Console.WriteLine("Enter the list of accessible doors separated by commas:");
-            badge.DoorNames = Console.ReadLine().Trim().Split(',').ToList();
+            badge.DoorNames = Console.ReadLine().Trim().ToUpper().Split(',').ToList();
 
             Console.WriteLine("Enter the badge name:");
             badge.BadgeName = Console.ReadLine().Trim();
