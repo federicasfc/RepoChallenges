@@ -79,7 +79,7 @@ namespace CafeUI
             foreach (MenuItem item in listOfItems)
             {
                 PrintContent(item);
-            } //PrintContent not working for some reason-address later.
+            }
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
         }
