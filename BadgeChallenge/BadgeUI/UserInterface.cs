@@ -102,7 +102,7 @@ namespace BadgeUI
             Console.WriteLine($"This badge has access to doors: ");
             PrintDoorsList(badge);
 
-            Console.WriteLine("What would you like to do?\n" +
+            Console.WriteLine("\nWhat would you like to do?\n" +
 
             "1.Remove a door\n" +
             "2.Remove all doors\n" +
@@ -116,9 +116,9 @@ namespace BadgeUI
                 case "1":
 
                     Console.WriteLine("Enter the door you would like removed from badge: ");
-                    string doorToBeRemoved = Console.ReadLine().Trim().ToUpper();
+                    string doorToBeRemoved = Console.ReadLine();
 
-                    if (badge.DoorNames.Contains(doorToBeRemoved))
+                    if (badge.DoorNames.Contains(doorToBeRemoved.Trim().ToUpper()))
                     {
                         if (_repo.RemoveDoorFromBadge(enteredNumber, doorToBeRemoved))
                         {
@@ -146,25 +146,25 @@ namespace BadgeUI
                     break;
                 case "2":
 
-                    Console.WriteLine($"Are you sure you want to remove all doors from {badge.BadgeId}?\n Enter y/n");
-                    string userConfirmation = Console.ReadLine().Trim();
+                    Console.WriteLine($"Are you sure you want to remove all doors from {badge.BadgeId}?\nEnter y/n");
+                    string userConfirmation = Console.ReadLine();
 
-                    if (userConfirmation.ToLower() == "y")
+                    if (userConfirmation.ToLower().Trim() == "y")
                     {
                         if (_repo.RemoveAllDoorsFromBadge(enteredNumber))
                         {
                             Console.WriteLine($"All doors removed from badge {badge.BadgeId}");
                             Console.WriteLine("Press any key to continue");
-                            Console.ReadKey(); //For some reason, these console lines aren't printing and the ones in the else are, but the method is being called successfully.
+                            Console.ReadKey();
                         }
-                        else
+                        else //very confused about why this else content is running when the method is being called as the condition to be met and is running successfully. maybe an issue with how I'm nesting the conditionals?
                         {
                             Console.WriteLine("Something went wrong");
                             Console.WriteLine("Press any key to continue");
                             Console.ReadKey();
                         }
                     }
-                    else if (userConfirmation.ToLower() == "n")
+                    else if (userConfirmation.ToLower().Trim() == "n")
                     {
                         Console.WriteLine($"No doors removed from badge {badge.BadgeId}");
                         Console.WriteLine("Press any key to continue");
@@ -182,9 +182,9 @@ namespace BadgeUI
                 case "3":
 
                     Console.WriteLine("Enter the door you would like to add: ");
-                    string doorToBeAdded = Console.ReadLine().Trim().ToUpper();
+                    string doorToBeAdded = Console.ReadLine();
 
-                    if (_repo.AddDoorToBadge(enteredNumber, doorToBeAdded))
+                    if (_repo.AddDoorToBadge(enteredNumber, doorToBeAdded.Trim().ToUpper()))
                     {
                         Console.WriteLine($"Door successfully added to {badge.BadgeId}");
                         Console.WriteLine("Press any key to continue");
@@ -236,11 +236,6 @@ namespace BadgeUI
             Console.WriteLine("Press any key to continue");
             Console.ReadKey();
         }
-        //foreach for DoorNames or foreach through badge.Value depending on what I want printed out, which still needs to be figured out
-        // Console.WriteLine("key = {0},  Value = {1}", badge.Key, badge.Value);
-        //Not using print content, but should at least do something. Need to edit PrintContent at some point.
-        //Also will print all of badge, not just doornames
-        //Also doesn't work lol.
 
         //Helper Methods
 
@@ -271,7 +266,7 @@ namespace BadgeUI
         {
             foreach (string door in badge.DoorNames)
             {
-                Console.Write($"{door}");
+                Console.Write($"{door} ");
             }
         }
 
