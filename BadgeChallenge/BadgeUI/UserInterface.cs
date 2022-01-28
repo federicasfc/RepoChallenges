@@ -151,13 +151,13 @@ namespace BadgeUI
 
                     if (userConfirmation.ToLower().Trim() == "y")
                     {
-                        if (_repo.RemoveAllDoorsFromBadge(enteredNumber))
+                        if (_repo.RemoveAllDoorsFromBadge(enteredNumber)) //Because this is relying on the SeedContent to run, BadgeRepo and its methods don't recognize that there is (kind of) content inside. So for this method, since the bool return is dependent on the listCount, it's not working.
                         {
                             Console.WriteLine($"All doors removed from badge {badge.BadgeId}");
                             Console.WriteLine("Press any key to continue");
                             Console.ReadKey();
                         }
-                        else //very confused about why this else content is running when the method is being called as the condition to be met and is running successfully. maybe an issue with how I'm nesting the conditionals?
+                        else
                         {
                             Console.WriteLine("Something went wrong");
                             Console.WriteLine("Press any key to continue");

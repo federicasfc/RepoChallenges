@@ -111,10 +111,10 @@ namespace BadgeLibrary
 
             int listCount = badge.DoorNames.Count();
 
-            badge.DoorNames = new List<string>(); //Overwrites List with new empty list (thank you Adam!!)
+            badge.DoorNames = new List<string>(); //Overwrites List with new empty list 
 
 
-            return listCount < badge.DoorNames.Count(); //Doesn't prove that listCount is 0, but close enough for right now
+            return listCount > badge.DoorNames.Count(); //Doesn't prove that listCount is 0, but close enough for right now
 
         }
 
